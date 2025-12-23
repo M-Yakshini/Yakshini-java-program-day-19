@@ -1,0 +1,26 @@
+class Solution {
+    public void solveSudoku(char[][] b) {
+        solve(b);
+    }
+    boolean solve(char[][] b) {
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                if (b[i][j] == '.') {
+                    for (char c = '1'; c <= '9'; c++) {
+                        if (ok(b, i, j, c)) {
+                            b[i][j] = c;
+                            if (solve(b)) return true;
+                            b[i][j] = '.';
+                        }
+                    }
+                    return false;
+                }
+        return true;
+    }
+    boolean ok(char[][] b, int r, int c, char v) {
+        for (int i = 0; i < 9; i++)
+            if (b[r][i] == v || b[i][c] == v || b[r/3*3+i/3][c/3*3+i%3] == v)
+                return false;
+        return true;
+    }
+}
