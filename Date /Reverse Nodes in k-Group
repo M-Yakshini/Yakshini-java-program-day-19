@@ -1,0 +1,17 @@
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode c = head;
+        for (int i = 0; i < k; i++) {
+            if (c == null) return head;
+            c = c.next;
+        }
+        ListNode prev = reverseKGroup(c, k);
+        while (k-- > 0) {
+            ListNode n = head.next;
+            head.next = prev;
+            prev = head;
+            head = n;
+        }
+        return prev;
+    }
+}
