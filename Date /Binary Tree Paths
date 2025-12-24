@@ -1,0 +1,16 @@
+class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> r = new ArrayList<>();
+        dfs(root, "", r);
+        return r;
+    }
+    void dfs(TreeNode n, String p, List<String> r) {
+        if (n == null) return;
+        if (n.left == null && n.right == null) {
+            r.add(p + n.val);
+            return;
+        }
+        dfs(n.left, p + n.val + "->", r);
+        dfs(n.right, p + n.val + "->", r);
+    }
+}
