@@ -1,0 +1,14 @@
+class Solution {
+    public Node cloneGraph(Node n) {
+        if (n == null) return null;
+        Map<Node, Node> m = new HashMap<>();
+        return f(n, m);
+    }
+    Node f(Node n, Map<Node, Node> m) {
+        if (m.containsKey(n)) return m.get(n);
+        Node c = new Node(n.val);
+        m.put(n, c);
+        for (Node x : n.neighbors) c.neighbors.add(f(x, m));
+        return c;
+    }
+}
