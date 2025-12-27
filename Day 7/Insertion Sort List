@@ -1,0 +1,14 @@
+class Solution {
+    public ListNode insertionSortList(ListNode h) {
+        ListNode d = new ListNode(0);
+        while (h != null) {
+            ListNode c = d;
+            while (c.next != null && c.next.val < h.val) c = c.next;
+            ListNode n = h.next;
+            h.next = c.next;
+            c.next = h;
+            h = n;
+        }
+        return d.next;
+    }
+}
