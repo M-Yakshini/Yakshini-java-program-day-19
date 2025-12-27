@@ -1,0 +1,17 @@
+class Solution {
+    public Node copyRandomList(Node h) {
+        Map<Node, Node> m = new HashMap<>();
+        Node c = h;
+        while (c != null) {
+            m.put(c, new Node(c.val));
+            c = c.next;
+        }
+        c = h;
+        while (c != null) {
+            m.get(c).next = m.get(c.next);
+            m.get(c).random = m.get(c.random);
+            c = c.next;
+        }
+        return m.get(h);
+    }
+}
