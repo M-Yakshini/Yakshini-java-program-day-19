@@ -1,0 +1,27 @@
+class Solution {
+    List<List<String>> r = new ArrayList<>();
+    public List<List<String>> partition(String s) {
+        f(s, 0, new ArrayList<>());
+        return r;
+    }
+    void f(String s, int i, List<String> c) {
+        if (i == s.length()) {
+            r.add(new ArrayList<>(c));
+            return;
+        }
+        for (int j = i + 1; j <= s.length(); j++) {
+            String t = s.substring(i, j);
+            if (p(t)) {
+                c.add(t);
+                f(s, j, c);
+                c.remove(c.size() - 1);
+            }
+        }
+    }
+    boolean p(String s) {
+        int l = 0, r = s.length() - 1;
+        while (l < r)
+            if (s.charAt(l++) != s.charAt(r--)) return false;
+        return true;
+    }
+}
