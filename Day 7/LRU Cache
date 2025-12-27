@@ -1,0 +1,43 @@
+class LRUCache {
+    class N {
+        int k, v;
+        N p, n;
+        N(int k, int v) { this.k = k; this.v = v; }
+    }
+    Map<Integer, N> m = new HashMap<>();
+    int c;
+    N h = new N(0, 0), t = new N(0, 0);
+    public LRUCache(int c) {
+        this.c = c;
+        h.n = t;
+        t.p = h;
+    }
+    public int get(int k) {
+        if (!m.containsKey(k)) return -1;
+        N n = m.get(k);
+        r(n);
+        a(n);
+        return n.v;
+    }
+    public void put(int k, int v) {
+        if (m.containsKey(k)) r(m.get(k));
+        N n = new N(k, v);
+        m.put(k, n);
+        a(n);
+        if (m.size() > c) {
+            N d = h.n;
+            r(d);
+            m.remove(d.k);
+        }
+    }
+    void r(N n) {
+        n.p.n = n.n;
+        n.n.p = n.p;
+    }
+    void a(N n) {
+        n.n = t;
+        n.p = t.p;
+        t.p.n = n;
+        t.p = n;
+    }
+}
